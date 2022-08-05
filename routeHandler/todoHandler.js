@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 
+
 const todoSchema = require("../schemas/todoSchema");
 const Todo = new mongoose.model("Todo", todoSchema);
 
@@ -33,7 +34,19 @@ router.post("/", async (req, res) => {
 });
 
 //get a todo by ID
-router.get("/:id", async (req, res) => {});
+router.get("/:id", async (req, res) => {
+    try{
+        const id=req.params.id
+       console.log(id);
+        const data=await  Todo.find({_id:id}).select('-date -__v')   .//excluding date __v
+         res.status(200).json({
+            data:data,
+            message:{success:true,}
+        })
+    }catch(error){
+
+    }
+});
 
 //post multiple todos
 router.post("/all", async (req, res) => {
