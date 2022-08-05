@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 
-
 //schemas
 const todoSchema = require("../schemas/todoSchema");
 const Todo = new mongoose.model("Todo", todoSchema);
