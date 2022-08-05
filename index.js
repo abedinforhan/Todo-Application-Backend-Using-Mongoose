@@ -1,6 +1,7 @@
 const express=require('express');
-const  mongoose  = require('mongoose');
+const mongoose  = require('mongoose');
 const todoHandler=require('./routeHandler/todoHandler')
+
 
 const app=express()
 const PORT=4000;
@@ -10,8 +11,7 @@ app.use(express.json())
 
 
 //database connection with mongoose
-
-
+ 
 mongoose.connect('mongodb://localhost/todos')
 .then(()=> console.log('Database connection  successful'))
 .catch(err => console.log(err))
@@ -19,7 +19,7 @@ mongoose.connect('mongodb://localhost/todos')
    
 
 //application routes
-app.use('/todo',todoHandler)
+app.use('/api/v1/todo',todoHandler)
 
 //deafult error handlers
 
