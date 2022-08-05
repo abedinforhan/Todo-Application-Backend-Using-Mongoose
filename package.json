@@ -1,5 +1,5 @@
 {
-  "name": "todo-application-mongoose",
+  "name": "todo-application-backend-using-mongoose",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
