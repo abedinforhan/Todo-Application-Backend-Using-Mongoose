@@ -6,7 +6,15 @@ const todoSchema = require("../schemas/todoSchema");
 const Todo = new mongoose.model("Todo", todoSchema);
 
 //get all the todos
-router.get("/", async (req, res) => {});
+router.get("/", async (req, res) => {
+    try {
+        const data = await Todo.find({});
+        console.log(data);
+        res.status(200).json({ data: data });
+      } catch (err) {
+        res.status(500).json({ error: err.message });
+      }
+});
 
 //post a todo
 router.post("/", async (req, res) => {
@@ -56,7 +64,7 @@ router.put("/:id", async (req, res) => {
           date,
         },
       },
-      {new: true}   // for getting the new document
+      { new: true } // for getting the new document
     );
     console.log(updatedData);
     res.status(200).json({ message: "Todo is updated successfully" });
