@@ -6,17 +6,22 @@ const router = express.Router();
 const todoSchema = require("../schemas/todoSchema");
 const Todo = new mongoose.model("Todo", todoSchema);
 
+//middlewares
+const checkLogin = require("../middlewares/checkLogin");
+
 //get all the todos
-router.get("/", async (req, res) => {
+router.get("/", checkLogin, async (req, res) => {
   try {
     const data = await Todo.find({});
-    console.log(data);
     res.status(200).json({
       success: true,
       result: data,
     });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({
+       success: false, 
+       error: err.message
+       });
   }
 });
 
@@ -79,17 +84,16 @@ router.post("/all", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const id = req.params.id;
-     const data = req.body 
+    const data = req.body;
 
-    const updatedData = await Todo.findByIdAndUpdate(
-      { _id: id },
-      data,
-      {upsert: true,new:true}
-    );
+    const updatedData = await Todo.findByIdAndUpdate({ _id: id }, data, {
+      upsert: true,
+      new: true,
+    });
     res.status(200).json({
       success: true,
       message: "Todo is updated successfully",
-      result:data
+      result: data,
     });
   } catch (err) {
     res.status(500).json({
