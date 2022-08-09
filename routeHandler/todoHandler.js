@@ -79,23 +79,17 @@ router.post("/all", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const { title, description, status, date } = req.body || {};
+     const data = req.body 
 
     const updatedData = await Todo.findByIdAndUpdate(
       { _id: id },
-      {
-        $set: {
-          title,
-          description,
-          status,
-          date,
-        },
-      },
-      { new: true } // for getting the new document
+      data,
+      {upsert: true,new:true}
     );
     res.status(200).json({
       success: true,
       message: "Todo is updated successfully",
+      result:data
     });
   } catch (err) {
     res.status(500).json({

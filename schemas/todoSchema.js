@@ -15,7 +15,10 @@ const todoSchema=mongoose.Schema({
     date:{
         type:Date,
         default:Date.now()
-        }
+        },
+    test:{
+        type:String,
+    }
 })
 
 
